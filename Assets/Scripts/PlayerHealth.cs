@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_isDead);
         if (transform.position.y < _belowLevelParameter && !_isDead)
         {
             Die();
