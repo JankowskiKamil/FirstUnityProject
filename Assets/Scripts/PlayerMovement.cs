@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        Debug.Log("Wow");
     }
 
     // Update is called once per frame
@@ -32,9 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            var velocity = _rigidbody.velocity;
-            velocity = new Vector3(velocity.x, jumpVelocity, velocity.z);
-            _rigidbody.velocity = velocity;
+            Jump();
         }
 
         // if (Input.GetKeyDown("space"))
@@ -59,6 +56,22 @@ public class PlayerMovement : MonoBehaviour
         //     _rigidbody.velocity = new Vector3(0, 0, -5);
         // }
 
+    }
+
+    void Jump()
+    {
+        var velocity = _rigidbody.velocity;
+        velocity = new Vector3(velocity.x, jumpVelocity, velocity.z);
+        _rigidbody.velocity = velocity;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy Head"))
+        {
+            Destroy(collision.transform.parent.gameObject);
+            Jump();
+        }
     }
 
     bool IsGrounded()
