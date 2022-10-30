@@ -12,7 +12,7 @@ public class ItemCollector : MonoBehaviour
     private int _coinsCollected = 0;
 
     [SerializeField] private Text cointsText;
-
+    [SerializeField] private AudioSource collectionSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Coin"))
@@ -21,6 +21,7 @@ public class ItemCollector : MonoBehaviour
             _coinsCollected ++;
             Debug.Log($"Coins: {_coinsCollected}");
             cointsText.text = "Coins: " + _coinsCollected;
+            collectionSound.Play();
         }
     }
 

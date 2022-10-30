@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool _isDead = false;
     private float _belowLevelParameter = -2f;
+    [SerializeField] private AudioSource deathSound;
 
     void Update()
     {
@@ -34,10 +35,11 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerMovement>().enabled = false; // cannot move
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     void Die()
     {
         _isDead = true;
-
+        deathSound.Play();
         Invoke(nameof(ReloadLevel), 1.3f); // Reload scene after 1.3 sec
     }
 
